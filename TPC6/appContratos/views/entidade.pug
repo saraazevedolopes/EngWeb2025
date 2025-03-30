@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  .w3-card-4
+    .w3-container
+      h3 Entidade: #{entidade.nome}
+      p
+        b NIPC:
+        |  #{entidade.nipc}
+      p
+        b Total dos contratos:
+        |  #{total} €
+
+      table.w3-table-all
+        tr
+          th ID
+          th Objeto
+          th Data Celebração
+          th Preço
+        each contrato in contratos
+          tr
+            td
+              a(href='/' + contrato._id)= contrato._id
+            td= contrato.objectoContrato
+            td= contrato.dataCelebracaoContrato
+            td= contrato.precoContratual
+
+      // a.w3-button.w3-margin-top.w3-indigo(href='/') Voltar à Página Principal

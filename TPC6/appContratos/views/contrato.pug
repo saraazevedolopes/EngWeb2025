@@ -1,0 +1,46 @@
+extends layout
+
+block content
+  .w3-card-4
+    .w3-container
+      h3 Contrato #{contrato._id}
+      table.w3-table-all
+        tr
+          th Campo
+          th Valor
+        tr
+          td ID
+          td= contrato._id
+        tr
+          td Número Anúncio
+          td= contrato.nAnuncio
+        tr
+          td Tipo de Procedimento
+          td= contrato.tipoprocedimento
+        tr
+          td Objeto do Contrato
+          td= contrato.objectoContrato
+        tr
+          td Data Publicação
+          td= contrato.dataPublicacao
+        tr
+          td Data Celebração
+          td= contrato.dataCelebracaoContrato
+        tr
+          td Preço Contratual
+          td= contrato.precoContratual
+        tr
+          td Prazo de Execução
+          td= contrato.prazoExecucao
+        tr
+          td NIPC da Entidade
+          td
+            a(href='/entidades/' + contrato.NIPC_entidade_comunicante)= contrato.NIPC_entidade_comunicante
+        tr
+          td Entidade Comunicante
+          td= contrato.entidade_comunicante
+        tr
+          td Fundamentação
+          td= contrato.fundamentacao
+
+      // a.w3-button.w3-margin-top.w3-indigo(href='/') Voltar à Página Principal

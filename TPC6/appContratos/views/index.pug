@@ -1,0 +1,23 @@
+extends layout 
+
+block content 
+    .w3-card-4
+      .w3-container 
+          table.w3-table-all 
+              tr 
+                  th Id 
+                  th Objeto 
+                  th Data celebração 
+                  th Preço
+                  th NIPC 
+                  th Entidade
+              each contrato in slist 
+                  tr
+                      td
+                        a(href='/' + contrato._id )= contrato._id 
+                      td= contrato.objectoContrato
+                      td= contrato.dataCelebracaoContrato 
+                      td= contrato.precoContratual
+                      td
+                        a(href='/entidades/' + contrato.NIPC_entidade_comunicante)= contrato.NIPC_entidade_comunicante
+                      td= contrato.entidade_comunicante
