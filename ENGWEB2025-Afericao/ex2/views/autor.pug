@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  .w3-container
+    h3 Nome do Autor: #{nome}
+    p
+      b ID:
+      code #{autorId}
+    p
+      b Total de Livros:
+      |  #{total}
+
+
+    table.w3-table-all.w3-hoverable
+      tr
+        th ID
+        th Título
+        th Publicado
+        th Páginas
+      each livro in livros
+        tr
+          td
+            a(href='/' + livro._id)= livro._id
+          td= livro.title
+          td= livro.publishDate
+          td= livro.pages
+    a.w3-button.w3-margin-top.w3-teal(href='/') Voltar à Página Principal
