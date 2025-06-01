@@ -1,0 +1,27 @@
+extends layout
+
+block content
+    .w3-card-4.w3-light-grey
+        .header.w3-container.w3-teal
+            a.w3-button.w3-circle.w3-xlarge.w3-light-gray.w3-margin-top(href="/" title="Voltar")
+                i.fa.fa-arrow-left.w3-text-teal
+            h2 Registar
+        form.w3-container(method="POST", style="width:400px")
+          p
+            label(for="_id") Nome de utilizador
+            input.w3-input.w3-border(type="text", name="_id", required)
+          p
+            label(for="nome") Nome completo
+            input.w3-input.w3-border(type="text", name="nome", required)
+          p
+            label(for="email") Email
+            input.w3-input.w3-border(type="email", name="email", required)
+          p
+            label(for="password") Palavra-passe
+            input.w3-input.w3-border(type="password", name="password", required)
+
+          p
+            button.w3-btn.w3-teal.w3-round.w3-margin-right(type="submit") Registar
+          p
+            | Já tens conta? 
+            a(href="/auth/login") Iniciar sessão

@@ -1,0 +1,40 @@
+extends ../layout
+
+block content 
+  .w3-card-4
+    .header.w3-container.w3-teal
+      button.w3-button.w3-circle.w3-xlarge.w3-light-gray.w3-margin-top(title="Voltar", onclick="window.history.back()")
+        i.fa.fa-arrow-left.w3-text-teal
+
+      h2 Editar Utilizador
+
+    form.w3-container(method="POST")
+      fieldset
+        legend Informações principais
+
+        label 
+          b ID
+        input.w3-input.w3-round(type="text", name="_id", value=user._id readonly)
+
+        label 
+          b Nome
+        input.w3-input.w3-round(type="text", name="nome", value=user.nome required)
+
+        label
+          b Email
+        input.w3-input.w3-round(type="email", name="email", value=user.email required)
+
+        label
+          b Perfil
+        div
+          label
+            input(type="radio", name="perfil", value="administrador", checked=(user.perfil === 'administrador'))
+            | Administrador
+
+          label.w3-margin-left
+            input(type="radio", name="perfil", value="produtor", checked=(user.perfil === 'produtor'))
+            | Produtor
+
+
+      .w3-margin-top
+        button.w3-btn.w3-teal.w3-round(type="submit", style="width:100px") Guardar

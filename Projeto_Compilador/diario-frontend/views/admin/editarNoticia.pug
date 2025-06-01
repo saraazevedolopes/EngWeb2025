@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+  .w3-card-4
+    .header.w3-container.w3-teal
+      a.w3-button.w3-circle.w3-xlarge.w3-light-gray.w3-margin-top(title="Voltar", href="/admin/noticias")
+        i.fa.fa-arrow-left.w3-text-teal
+      h1 Editar Notícia
+
+  .w3-container.w3-white
+    .w3-container.w3-margin-top(style="max-width: 600px;")
+      form.w3-container(action="/admin/noticias/edit/" + noticia._id, method="POST")
+        .w3-margin-bottom
+          label.w3-text-teal
+            b Título
+          input.w3-input.w3-border.w3-light-grey(type='text', name='titulo', required, value=noticia.titulo)
+        .w3-margin-bottom
+          label.w3-text-teal
+            b Conteúdo
+          textarea.w3-input.w3-border.w3-light-grey(name='conteudo', rows='6', required)= noticia.corpo
+        .w3-margin-bottom
+          label.w3-text-teal
+            b Visível?
+          select.w3-select(name='visivel', required)
+            option(value='true', selected=noticia.visivel) Sim
+            option(value='false', selected=!noticia.visivel) Não
+
+        .w3-margin-top
+          input.w3-btn.w3-teal.w3-round.w3-medium(type='submit', value='Guardar')
+          a.w3-btn.w3-light-grey.w3-round.w3-medium(href='/admin/noticias', style='margin-left: 10px') Cancelar

@@ -1,0 +1,67 @@
+extends ../layout
+
+block content 
+  .w3-card-4
+    .header.w3-container.w3-teal
+      a.w3-button.w3-circle.w3-xlarge.w3-light-gray.w3-margin-top(type="button", title="Voltar", href="/admin")
+        i.fa.fa-arrow-left.w3-text-teal
+    header.w3-container.w3-teal
+      h1 Lista de Recursos
+
+  .w3-container.w3-white
+    .w3-container.w3-margin-top
+        .w3-card-2.w3-light-grey
+          .w3-container.w3-teal
+            h3 Adicionar Novo Item
+          form.w3-container(id='sipUploadForm', action='/items/files', method='POST', enctype='multipart/form-data')
+            .w3-margin-bottom
+              label.w3-text-teal
+                b Selecione um SIP (.zip) para adicionar ao diário
+              input.w3-input.w3-border.w3-light-grey(type='file' name='sip' required)
+              input.w3-btn.w3-teal.w3-round.w3-small(type='submit' value='Enviar')
+
+    table.w3-table-all.w3-hoverable.w3-margin-top
+      thead
+        tr
+          th ID 
+          th Título 
+          th Descrição 
+          th Tipo 
+          th Classificadores 
+          th Produtor 
+          th Submissor 
+          th Visibilidade
+          th Criado em 
+          th Submetido em 
+          th Ações
+      tbody
+        each item in items  
+          tr 
+            td 
+              a(href="/items/" + item._id)= item._id
+            td= item.titulo
+            td= item.descricao
+            td= item.tipo
+            td
+              ul.w3-ul
+                each classificador in item.classificadores
+                  li.w3-li= classificador
+
+            td 
+                a(href="/utilizadores/" + item.produtor)
+            td= item.submissor
+            td
+              if item.publico
+                span.w3-tag.w3-green.w3-round Público
+              else
+                span.w3-tag.w3-red.w3-round Privado
+
+            td= new Date(item.data_criacao).toLocaleString()
+            td= new Date(item.data_submissao).toLocaleString()
+            td
+              div(style="margin-bottom: 4px;")
+                a(href="/items/edit/" + item._id, class="w3-button w3-blue w3-round", style="width:100px") Editar
+              div(style="margin-bottom: 4px;")
+                a(href="/items/delete/" + item._id, class="w3-button w3-red w3-round", style="width:100px") Eliminar
+              div
+                a(href=`http://localhost:3000/items/download/${item._id}`, class="w3-button w3-green w3-round", style="width:100px") Exportar

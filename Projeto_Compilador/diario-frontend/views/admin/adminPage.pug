@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+  .w3-card-4
+    .header.w3-container.w3-teal
+      a.w3-button.w3-circle.w3-xlarge.w3-light-gray.w3-margin-top(title="Voltar", href="/")
+        i.fa.fa-arrow-left.w3-text-teal
+      h2 Área Reservada do Administrador
+
+  .w3-container.w3-padding
+    .w3-container(style="max-width: 400px;")
+      a.w3-button.w3-block.w3-blue.w3-text-white.w3-large.w3-margin-bottom(href="/admin/utilizadores")
+        i.fa.fa-users.w3-margin-right
+        | Gerir Produtores
+      a.w3-button.w3-block.w3-green.w3-text-white.w3-large.w3-margin-bottom(href="/admin/recursos")
+        i.fa.fa-archive.w3-margin-right
+        | Gerir Recursos
+      a.w3-button.w3-block.w3-orange.w3-text-white.w3-large(href="/admin/noticias")
+        i.fa.fa-newspaper.w3-margin-right
+        | Gerir Notícias

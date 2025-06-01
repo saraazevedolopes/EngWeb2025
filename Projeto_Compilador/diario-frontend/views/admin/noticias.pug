@@ -1,0 +1,66 @@
+extends ../layout
+
+block content
+  .w3-card-4
+    .header.w3-container.w3-teal
+      a.w3-button.w3-circle.w3-xlarge.w3-light-gray.w3-margin-top(title="Voltar", href="/admin")
+        i.fa.fa-arrow-left.w3-text-teal
+      h1 Lista de Notícias
+
+  .w3-container.w3-white
+    .w3-container.w3-margin-top
+      .w3-card-2.w3-light-grey
+        .w3-container.w3-teal
+          h3 Adicionar Nova Notícia
+        form.w3-container(action="/admin/noticias", method="POST")
+          .w3-margin-bottom
+            label.w3-text-teal
+              b Título
+            input.w3-input.w3-border.w3-light-grey(type='text', name='titulo', required)
+          .w3-margin-bottom
+            label.w3-text-teal
+              b Conteúdo
+            textarea.w3-input.w3-border.w3-light-grey(name='conteudo', rows='4', required)
+          .w3-margin-bottom
+            label.w3-text-teal
+              b Visível?
+            select.w3-select(name='visivel', required)
+              option(value='true') Sim
+              option(value='false') Não
+          input.w3-btn.w3-teal.w3-round.w3-small(type='submit', value='Criar Notícia')
+
+    table.w3-table-all.w3-hoverable.w3-margin-top
+      thead
+        tr
+          th ID
+          th Título
+          th Conteúdo
+          th Visibilidade
+          th Criado em
+          th Ações
+      tbody
+        each noticia in noticias
+          tr
+            td= noticia._id
+            td= noticia.titulo
+            td
+              if noticia.corpo
+                = noticia.corpo.length > 100 ? noticia.corpo.substring(0, 100) + '...' : noticia.corpo
+              else
+                em (sem conteúdo)
+            td
+              if noticia.visivel
+                span.w3-tag.w3-green.w3-round Visível
+              else
+                span.w3-tag.w3-red.w3-round Invisível
+            td
+              if noticia.data
+                = new Date(noticia.data).toLocaleString()
+              else
+                em (sem data)
+            td
+              div(style="margin-bottom: 4px;")
+                a(href="/admin/noticias/edit/" + noticia._id, class="w3-button w3-blue w3-round") Editar
+              div
+                a(href="/admin/noticias/toggle/" + noticia._id, class="w3-button w3-orange w3-round") Alternar Visibilidade
+

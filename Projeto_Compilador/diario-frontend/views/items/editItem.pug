@@ -1,0 +1,55 @@
+extends ../layout
+
+block content 
+  .w3-card-4
+    .header.w3-container.w3-teal
+      a.w3-button.w3-circle.w3-xlarge.w3-light-gray.w3-margin-top(href="/" title="Voltar")
+        i.fa.fa-arrow-left.w3-text-teal
+      h2 Editar Item
+
+    .w3-container
+      h4
+        b ID: 
+        | #{item._id}
+    
+      h4
+        b Título: 
+        | #{item.titulo}
+
+
+    form.w3-container(method="POST")
+      input(type="hidden", name="redirectUrl", value=previousUrl)
+      fieldset
+        legend Informações principais
+
+        label 
+            b Título
+        input.w3-input.w3-round(type="text", name="titulo", value=item.titulo)
+
+        label
+            b Descrição
+        textarea.w3-input.w3-round(name="descricao")= item.descricao
+
+        label 
+            b Tipo
+        input.w3-input.w3-round(type="text", name="tipo", value=item.tipo)
+
+        label 
+            b Classificadores (separados por vírgula)
+        input.w3-input.w3-round(type="text", name="classificadores", value=(item.classificadores || []).join(', '))
+
+        label 
+            b Produtor (ID do utilizador)
+        input.w3-input.w3-round(type="text", name="produtor", value=item.produtor)
+
+        label 
+            b Submissor
+        input.w3-input.w3-round(type="text", name="submissor", value=item.submissor)
+
+        label 
+            b Público
+        input.w3-check(type="checkbox", name="publico", checked=item.publico ? true : undefined)
+
+      .w3-margin-top
+        button.w3-btn.w3-teal.w3-round(type="submit", style="width:100px") Guardar
+

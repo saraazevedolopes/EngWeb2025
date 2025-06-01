@@ -1,0 +1,115 @@
+extends ../layout
+
+block content
+  .w3-card-4
+    .w3-container.w3-teal
+      a.w3-button.w3-circle.w3-xlarge.w3-light-gray.w3-margin-top(href="javascript:history.back()", title="Voltar")
+        i.fa.fa-arrow-left.w3-text-teal
+      h2 Detalhes do Item
+
+  .w3-container.w3-padding
+    h3.w3-serif #{item.titulo}
+
+    .w3-row-padding.w3-margin-bottom
+      .w3-half
+        p 
+          b Data de Criação: 
+          | #{item.data_criacao.substring(0, 10)}
+        p 
+          b Data de Submissão: 
+          | #{item.data_submissao.substring(0, 10)}
+        p 
+          b Descrição: 
+          | #{item.descricao}
+        p 
+          b Tipo: 
+          | #{item.tipo}
+        p 
+          b Classificadores: 
+          | #{item.classificadores.join(', ')}
+        p 
+          b Produtor: 
+          | #{item.produtor}
+        p 
+          b Submissor: 
+          | #{item.submissor}
+
+    hr
+
+    if item.ficheiros && item.ficheiros.length
+      .w3-container
+        h4 Imagens
+        .w3-row-padding(style='margin-left:-4px;margin-right:-4px')
+          each f in item.ficheiros
+            if f.tipo && f.tipo.startsWith('image/')
+              .w3-third(style='padding:4px')
+                img.w3-image.w3-border(
+                  src=`http://localhost:3000/fileStore/${item._id}/${f.caminho}`,
+                  alt=f.nome,
+                  style='max-height:200px; width:auto; max-width:100%;'
+                )
+
+
+    .w3-container
+      h4 Textos
+      each t in textos
+        .w3-card.w3-padding.w3-margin-bottom(style='width: 100%')
+          h5(style='font-weight: bold; margin-bottom: 0.5em')= t.nome
+          pre(style='white-space: pre-wrap; word-wrap: break-word; margin: 0')= t.texto
+
+
+    if item.ficheiros && item.ficheiros.length
+      .w3-container.w3-margin-top
+        h4 Ficheiros
+        ul.w3-ul
+          each f in item.ficheiros
+            li
+              | #{f._id.replace('dados/', '')}
+              a.w3-button.w3-small.w3-teal.w3-margin-left(href=`http://localhost:3000/items/download/file/${item._id}/${f.caminho}`)
+                i.fa.fa-download.w3-margin-right
+                | Descarregar
+
+      .w3-margin-top
+        a.w3-button.w3-teal(href=`http://localhost:3000/items/download/${item._id}`) 
+          i.fa.fa-file-zipper.w3-margin-right
+          | Descarregar como ZIP
+    else
+      p Nenhum ficheiro anexado.
+
+    hr
+
+    h3 Comentários 
+    if item.comentarios && item.comentarios.length
+      .w3-container.w3-margin-top
+        each c in item.comentarios
+          .w3-card.w3-margin-bottom.w3-padding.w3-white
+            .w3-row
+              .w3-col.m12
+                if c.username
+                  span.w3-text-black.w3-medium
+                    b= `${c.username}:`
+                else
+                  span.w3-text-grey.w3-medium
+                    b Anónimo:
+            .w3-row
+              .w3-col.m12
+                p.w3-small.w3-margin-top= c.comentario
+    else
+      .w3-container.w3-margin-top
+        .w3-panel.w3-pale-yellow.w3-border
+          p Nenhum comentário disponível.
+
+    hr
+
+    h4 Adicionar Comentário:
+    form(method="POST")
+      textarea.w3-input.w3-border.w3-round(name="comentario", rows="4", required)
+
+      .w3-margin-top
+        input.w3-check(type="checkbox", name="anonimo", id="anonimo")
+        label(for="anonimo") Comentar como anónimo
+
+      .w3-margin-top
+        button.w3-button.w3-teal(type='submit')
+          i.fa.fa-paper-plane.w3-margin-right
+          | Submeter

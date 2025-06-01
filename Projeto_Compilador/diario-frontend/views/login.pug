@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  .w3-card-4.w3-light-grey
+    .header.w3-container.w3-teal
+      a.w3-button.w3-circle.w3-xlarge.w3-light-gray.w3-margin-top(href="/" title="Voltar")
+        i.fa.fa-arrow-left.w3-text-teal
+      h2 Login
+
+    form.w3-container(method="POST", style="width:400px")
+      p
+        label(for="username") Nome de utilizador
+        input.w3-input.w3-border(type="text", name="username", required)
+
+      p
+        label(for="password") Palavra-passe
+        input.w3-input.w3-border(type="password", name="password", required)
+
+      p
+        button.w3-button.w3-teal(type="submit") Entrar
+
+      p
+        | Não tens conta? 
+        a(href="/auth/signup") Regista-te
+
+    hr
+
+    .w3-container(style="margin-top: 15px")
+      p Ou entra com:
+      a.w3-button.w3-black(href="http://localhost:3000/auth/github")
+        i.fa.fa-github.w3-margin-right
+        | GitHub

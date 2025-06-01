@@ -1,0 +1,86 @@
+extends ../layout
+
+block content
+  .w3-card-4
+    .w3-container.w3-teal
+      button.w3-button.w3-circle.w3-xlarge.w3-light-gray.w3-margin-top(title="Voltar", onclick="window.history.back()")
+        i.fa.fa-arrow-left.w3-text-teal
+
+      .w3-row
+        .w3-col.m6.l6
+          h1.w3-serif(style="display: inline-block; margin-right: 16px") Perfil do Utilizador
+          a.w3-button.w3-small.w3-light-grey.w3-round(href=`/utilizadores/edit/${user._id}`)
+            i.fa.fa-pencil.w3-margin-right
+            | Editar Perfil
+          a.w3-button.w3-small.w3-red.w3-round(href=`/utilizadores/delete/${user._id}`)
+            i.fa.fa-trash.w3-margin-right
+            | Eliminar  Perfil
+        .w3-col.m6.l6.w3-right-align.w3-margin-top
+
+    .w3-container.w3-padding
+      h3 Detalhes do Utilizador
+      .w3-row-padding
+        .w3-col.m6
+          p
+            b ID: 
+            | #{user._id}
+          p
+            b Nome: 
+            | #{user.nome}
+          p
+            b Email: 
+            | #{user.email}
+          p
+            b Perfil:
+            if user.perfil == 'administrador'
+              span.w3-tag.w3-red.w3-round Administrador
+            else if user.perfil == 'produtor'
+              span.w3-tag.w3-blue.w3-round Produtor
+            else
+              span.w3-tag.w3-yellow.w3-round Consumidor
+
+
+  .w3-container.w3-margin-top
+    .w3-card-2.w3-light-grey
+      .w3-container.w3-teal
+        h3 Adicionar Novo Item
+      form.w3-container(id='sipUploadForm', action='/items/files', method='POST', enctype='multipart/form-data')
+        .w3-margin-bottom
+          label.w3-text-teal
+            b Selecione um SIP (.zip) para adicionar ao diário
+          input.w3-input.w3-border.w3-light-grey(type='file' name='sip' required)
+          input.w3-btn.w3-teal.w3-round.w3-small(type='submit' value='Enviar')
+
+  h2.w3-margin-top.w3-margin-left Itens do Utilizador
+
+  if items && items.length
+    .w3-container.w3-margin
+      each item, i in items
+        .w3-card.w3-margin-bottom
+          .w3-container
+            .w3-container
+              h3(style="display: inline-block; margin-right: 10px")= item.titulo
+              span.w3-tag.w3-small(class= item.publico ? 'w3-green' : 'w3-red')= item.publico ? 'Público' : 'Privado'
+
+            p #{item.descricao}
+            a.w3-button.w3-teal.w3-margin-right(href=`/items/${item._id}`)
+              b Ver detalhe
+            a.w3-button.w3-indigo.w3-margin-right(href=`/items/edit/${item._id}`)
+              b Editar
+            a.w3-button.w3-red(href=`/items/delete/${item._id}`)
+              b Apagar
+          .w3-container.w3-small.w3-text-grey
+            .w3-left
+              | Classificadores:
+              ul
+                each classificador in item.classificadores
+                  li= classificador
+
+            .w3-right
+              b
+                | Criado em: #{item.data_criacao.substring(0, 10)}
+
+            .w3-clear
+  else
+    .w3-container.w3-padding
+      p Nenhum item disponível para este produtor
